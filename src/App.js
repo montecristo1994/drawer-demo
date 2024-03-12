@@ -4,7 +4,7 @@ import Drawer from './Drawer';
 
 
 function App() {
-  const { openDrawer } = useDrawer();
+  const { openDrawer, closeDrawer } = useDrawer();
 
   const handleOpenDrawer1 = () => {
     openDrawer('Page 1', <Temp/>, 'Footer 1');
@@ -23,6 +23,7 @@ function App() {
       <button onClick={handleOpenDrawer1}>Open Page 1</button>
       <button onClick={handleOpenDrawer2}>Open Page 2</button>
       <button onClick={handleOpenDrawer3}>Open Page 3</button>
+      <button onClick={closeDrawer}>Close</button>
       <Drawer />
     </div>
   );

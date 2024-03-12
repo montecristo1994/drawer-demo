@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import useDrawer from './useDrawer';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { DrawerContext } from './Drawer-prodiver';
 
 const Drawer = () => {
@@ -15,13 +15,6 @@ const Drawer = () => {
 		}
 	} = useContext(DrawerContext);
 
-  const [innerOpen, setInnerOpen] = useState(isOpen)
-	useEffect(() => {
-		if (isOpen) {
-			setInnerOpen(true);
-    }
-	}, [isOpen])
-
   return (
     <div>
       {isOpen && (
@@ -29,7 +22,7 @@ const Drawer = () => {
           <button onClick={closeDrawer} style={buttonStyle}>Close</button>
           {title}
           <div className="divider"></div>
-          {innerOpen && content}      
+          {isOpen && content}      
           <div className="divider"></div>    
           {footer}
         </div>
