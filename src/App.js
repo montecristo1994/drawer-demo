@@ -1,34 +1,38 @@
 import './App.css';
-import Content1 from './Content1';
+import useDrawer from "./useDrawer";
 import Drawer from './Drawer';
-import { useState } from 'react';
-import Header1 from './Header1';
-import Footer1 from './Footer1';
-import Content2 from './Content2';
+
 
 function App() {
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
+  const { openDrawer } = useDrawer();
 
-  const toggleDrawer1 = () => {
-    setIsOpen1(!isOpen1);
-    setIsOpen2(false);
+  const handleOpenDrawer1 = () => {
+    openDrawer('Page 1', <Temp/>, 'Footer 1');
   };
 
-  const toggleDrawer2 = () => {
-    setIsOpen2(!isOpen2);
-    setIsOpen1(false);
+  const handleOpenDrawer2 = () => {
+    openDrawer('Page 2', 'Page 2 content', 'Footer 2');
+  };
+
+  const handleOpenDrawer3 = () => {
+    openDrawer('Page 3', <div>Page 3 content</div>);
   };
 
   return (
     <div className="App" style={contentStyle}>
-      <button onClick={toggleDrawer1}>Toggle Drawer with header, footer</button>
-      <button onClick={toggleDrawer2}>Toggle Drawer without header, footer</button>
-      <Drawer isOpen={isOpen1} onToggleDrawer={toggleDrawer1} drawerContent={Content1} header={Header1} footer={Footer1}></Drawer>
-      <Drawer isOpen={isOpen2} onToggleDrawer={toggleDrawer2} drawerContent={Content2}></Drawer>
+      <button onClick={handleOpenDrawer1}>Open Page 1</button>
+      <button onClick={handleOpenDrawer2}>Open Page 2</button>
+      <button onClick={handleOpenDrawer3}>Open Page 3</button>
+      <Drawer />
     </div>
   );
 }
+
+const Temp = () => {
+  return (
+      <div>Page 1 content</div>
+  );
+};
 
 
 const contentStyle = {

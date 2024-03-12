@@ -1,16 +1,37 @@
 import React from 'react';
 import './App.css';
+import useDrawer from './useDrawer';
+import { useContext, useEffect, useState } from 'react';
+import { DrawerContext } from './Drawer-prodiver';
 
-const Drawer = ({ isOpen, onToggleDrawer, drawerContent: DrawerContent, header: HeaderComponent, footer: FooterComponent }) => {
+const Drawer = () => {
+  const { closeDrawer } = useDrawer();
+  const {
+		config: {
+			isOpen,
+			content,
+			title,
+      footer
+		}
+	} = useContext(DrawerContext);
+
+  const [innerOpen, setInnerOpen] = useState(isOpen)
+	useEffect(() => {
+		if (isOpen) {
+			setInnerOpen(true);
+    }
+	}, [isOpen])
+
   return (
     <div>
       {isOpen && (
         <div style={drawerStyle}>
-          <button onClick={onToggleDrawer} style={buttonStyle}>Close</button>
-          {HeaderComponent && <div style={headerStyle}> <HeaderComponent /> </div>}
-          <DrawerContent />
-          {FooterComponent && <div style={footerStyle}> <FooterComponent /> </div>}
-          
+          <button onClick={closeDrawer} style={buttonStyle}>Close</button>
+          {title}
+          <div className="divider"></div>
+          {innerOpen && content}      
+          <div className="divider"></div>    
+          {footer}
         </div>
       )}
             
@@ -29,21 +50,9 @@ const drawerStyle = {
   padding: '20px',
 };
 
-const headerStyle = {
-    borderBottom: '1px solid black',
-    padding: '20px',
-    marginBottom: '20px'
-}
-
-const footerStyle = {
-    borderTop: '1px solid black',
-    padding: '20px',
-    marginTop: '20px'
-}
-
 const buttonStyle = {
     position: 'absolute',
-    top: '40px',
+    top: '20px',
     right: '10px'
 }
 
